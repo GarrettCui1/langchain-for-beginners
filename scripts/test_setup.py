@@ -4,19 +4,17 @@ Setup Test - Verify AI Provider Access
 import os
 import sys
 
+# 将项目根目录添加到 Python 路径，以便导入 config 模块
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+# 导入代理配置（必须在加载环境变量之前）
+from config.proxy_config import configure_proxy
+
 from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI
 
-# 禁用代理，以便直接连接到本地 Ollama 服务
-os.environ['NO_PROXY'] = 'localhost,127.0.0.1'
-if 'HTTP_PROXY' in os.environ:
-    del os.environ['HTTP_PROXY']
-if 'http_proxy' in os.environ:
-    del os.environ['http_proxy']
-if 'HTTPS_PROXY' in os.environ:
-    del os.environ['HTTPS_PROXY']
-if 'https_proxy' in os.environ:
-    del os.environ['https_proxy']
+# 应用代理配置
+configure_proxy()
 
 
 def test_setup():
