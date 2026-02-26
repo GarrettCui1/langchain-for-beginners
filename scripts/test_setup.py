@@ -26,7 +26,7 @@ def test_setup():
     
     try:
         model = ChatOpenAI(
-            model=os.getenv("AI_MODEL", "gpt-5-mini"),
+            model=os.getenv("AI_MODEL", "deepseek-r1:1.5b"),
             base_url=os.getenv("AI_ENDPOINT"),
             api_key=os.getenv("AI_API_KEY"),
         )
