@@ -4,17 +4,8 @@ Setup Test - Verify AI Provider Access
 import os
 import sys
 
-# 将项目根目录添加到 Python 路径，以便导入 config 模块
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
-# 导入代理配置（必须在加载环境变量之前）
-from config.proxy_config import configure_proxy
-
 from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI
-
-# 应用代理配置
-configure_proxy()
 
 
 def test_setup():
