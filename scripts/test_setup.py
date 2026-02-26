@@ -7,6 +7,17 @@ import sys
 from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI
 
+# 禁用代理，以便直接连接到本地 Ollama 服务
+os.environ['NO_PROXY'] = 'localhost,127.0.0.1'
+if 'HTTP_PROXY' in os.environ:
+    del os.environ['HTTP_PROXY']
+if 'http_proxy' in os.environ:
+    del os.environ['http_proxy']
+if 'HTTPS_PROXY' in os.environ:
+    del os.environ['HTTPS_PROXY']
+if 'https_proxy' in os.environ:
+    del os.environ['https_proxy']
+
 
 def test_setup():
     """Test AI provider connection and configuration."""
@@ -35,7 +46,7 @@ def test_setup():
         
         print("✅ SUCCESS! Your AI provider is working!")
         print(f"   Provider: {os.getenv('AI_ENDPOINT')}")
-        print(f"   Model: {os.getenv('AI_MODEL', 'gpt-5-mini')}")
+        print(f"   Model: {os.getenv('AI_MODEL', 'deepseek-r1:1.5b')}")
         print(f"\nModel response: {response.content}")
         print("\n🎉 You're ready to start the course!")
     except Exception as error:
