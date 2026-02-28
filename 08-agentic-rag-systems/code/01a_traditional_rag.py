@@ -26,7 +26,8 @@ from dotenv import load_dotenv
 from langchain_core.documents import Document
 from langchain_core.messages import HumanMessage, SystemMessage
 from langchain_core.vectorstores import InMemoryVectorStore
-from langchain_openai import AzureOpenAIEmbeddings, ChatOpenAI
+from langchain_openai import ChatOpenAI
+from langchain_ollama import OllamaEmbeddings
 
 load_dotenv()
 
@@ -45,11 +46,8 @@ def main():
     print("📖 Traditional RAG System Example\n")
     print("=" * 80 + "\n")
 
-    embeddings = AzureOpenAIEmbeddings(
-        azure_endpoint=get_embeddings_endpoint(),
-        api_key=os.getenv("AI_API_KEY"),
-        model=os.getenv("AI_EMBEDDING_MODEL", "text-embedding-ada-002"),
-        api_version="2024-02-01",
+    embeddings = OllamaEmbeddings(
+        model=os.getenv("AI_EMBEDDING_MODEL", "qwen3-embedding:0.6b"),
     )
 
     model = ChatOpenAI(
