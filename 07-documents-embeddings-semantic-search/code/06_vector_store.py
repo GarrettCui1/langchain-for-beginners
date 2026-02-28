@@ -14,6 +14,7 @@ from dotenv import load_dotenv
 from langchain_core.documents import Document
 from langchain_core.vectorstores import InMemoryVectorStore
 from langchain_openai import AzureOpenAIEmbeddings
+from langchain_ollama import OllamaEmbeddings
 
 load_dotenv()
 
@@ -31,11 +32,15 @@ def get_embeddings_endpoint():
 def main():
     print("🗄️  Vector Store and Semantic Search\n")
 
-    embeddings = AzureOpenAIEmbeddings(
-        azure_endpoint=get_embeddings_endpoint(),
-        api_key=os.getenv("AI_API_KEY"),
-        model=os.getenv("AI_EMBEDDING_MODEL", "text-embedding-ada-002"),
-        api_version="2024-02-01",
+    # embeddings = AzureOpenAIEmbeddings(
+    #     azure_endpoint=get_embeddings_endpoint(),
+    #     api_key=os.getenv("AI_API_KEY"),
+    #     model=os.getenv("AI_EMBEDDING_MODEL", "text-embedding-ada-002"),
+    #     api_version="2024-02-01",
+    # )
+
+    embeddings = OllamaEmbeddings(
+        model=os.getenv("AI_EMBEDDING_MODEL", "qwen3-embedding:0.6b"),
     )
 
     # Create documents about different topics
